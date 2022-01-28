@@ -1,6 +1,6 @@
 // the original tile object that generated, this will be removed
 
-class Tile {
+export default class Tile {
   constructor (color, index) {
     this.color = color || 'black';
     this.index = index || 0;

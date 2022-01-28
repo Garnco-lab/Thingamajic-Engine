@@ -1,4 +1,6 @@
-class Player {
+import TileMap from "./tilemap.js";
+
+export default class Player {
 
   // builds the player
 

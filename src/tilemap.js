@@ -1,4 +1,7 @@
-class TileMap {
+import Tile from "./tile.js";
+import TileBlock from "./tileBlock.js";
+
+export default class TileMap {
 
   // containers
   backgroundGrassTiles = [];

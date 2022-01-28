@@ -1,8 +1,14 @@
 // THIS IS THE MAIN SCRIPT FOR THE GAME
 // EVERYTHING ELSE LOADS AND PLAYS INTO THIS, IT'S WHERE THE MAGIC HAPPENS
+import EventManager from "./eventManager.js";
+import Camera from "./camera.js";
+import TileMap from "./tilemap.js";
+import Player from "./player.js";
+import TileChecker from "./tileChecker.js";
+import PlayerTileCheck from "./playerTileCheck.js";
 
 
-class Game { // main game class
+export default class Game { // main game class
 
   // "static" is a variable type that means it wont ever change
   // while that's pretty useful on top of that in javascript it means it wont

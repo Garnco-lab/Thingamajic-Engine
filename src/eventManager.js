@@ -1,4 +1,4 @@
-class EventManager {
+export default class EventManager {
 
   mouseHeldDown = false;
 

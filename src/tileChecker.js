@@ -1,7 +1,7 @@
 // these are the green blocks that detect to see if a tile is underneath it
 // this will instead detect if the block is solid in the future
 
-class TileChecker {
+export default class TileChecker {
   tileCheckerImage = new Image();
   alternateTileCheckerImage = new Image();
   constructor(x, y, tileMap, context, camera, player, direction, playerTileCheck) {

@@ -1,4 +1,4 @@
-class PlayerTileCheck { // THIS IS THE MAIN OBJECT THAT DETECTS IF THE PLAYER
+export default class PlayerTileCheck { // THIS IS THE MAIN OBJECT THAT DETECTS IF THE PLAYER
   // IS ON A TILE OR NOT
 
   idOfTileUnderThisObject = undefined;

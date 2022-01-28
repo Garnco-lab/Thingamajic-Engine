@@ -6,7 +6,7 @@
 // to stop running rather than having it still going
 // it doesn't really work, but it's better than nothing
 'use strict'
-
+import Game from "./Game.js";
 // the browser has a lot of events it can detect automatically, this isn't
 // related to the html5 canvas, rather the "document object model" which
 // has been here since the late 80's and early 90s,

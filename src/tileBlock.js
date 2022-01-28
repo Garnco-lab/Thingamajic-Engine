@@ -2,7 +2,7 @@
 // holds a special "id" tag for information, and is used during the shift
 // command to make sure that it's always in a position that's aligned
 
-class TileBlock {
+export default class TileBlock {
 
   // this is a special id name given by the entity manager
   id=undefined;
