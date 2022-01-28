@@ -3,9 +3,8 @@
 // command to make sure that it's always in a position that's aligned
 
 export default class TileBlock {
-
   // this is a special id name given by the entity manager
-  id=undefined;
+  id = undefined;
 
   changeColor = false;
 
@@ -23,47 +22,43 @@ export default class TileBlock {
     this.canvas = canvas;
   }
 
-
-
   // might be a risky implementation not sure
   detectObjectsOverThisTile(playerTileCheck, x, y) {
     if (
       this.x < x + 20 &&
       this.x + 64 > x &&
       this.y < y + 20 &&
-      this.y + 64 > y && playerTileCheck.playerLeft === true) {
+      this.y + 64 > y &&
+      playerTileCheck.playerLeft === true
+    ) {
       this.changeColor = true;
       playerTileCheck.idOfTileUnderThisObject = this.id;
-      playerTileCheck.playerLeft = false
-    }
-    else {
+      playerTileCheck.playerLeft = false;
+    } else {
       this.changeColor = false;
       playerTileCheck.playerLeft = true;
     }
-
-
-
   }
 
-
-  render (context, camera) {
+  render(context, camera) {
     context.lineWidth = 1;
-    context.strokeStyle = 'black';
-    if(this.changeColor === false) {
-      context.fillStyle = 'yellow';
-    }
-    else if (this.changeColor === true) {
-      context.fillStyle = 'red';
+    context.strokeStyle = "black";
+    if (this.changeColor === false) {
+      context.fillStyle = "yellow";
+    } else if (this.changeColor === true) {
+      context.fillStyle = "red";
     }
 
     context.beginPath();
 
-
-    context.rect(this.x - camera.x, this.y - camera.y, TileBlock.WIDTH,
-      TileBlock.HEIGHT);
+    context.rect(
+      this.x - camera.x,
+      this.y - camera.y,
+      TileBlock.WIDTH,
+      TileBlock.HEIGHT
+    );
 
     context.fill();
     context.stroke();
-
   }
 }

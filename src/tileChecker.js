@@ -4,16 +4,25 @@
 export default class TileChecker {
   tileCheckerImage = new Image();
   alternateTileCheckerImage = new Image();
-  constructor(x, y, tileMap, context, camera, player, direction, playerTileCheck) {
-
+  constructor(
+    x,
+    y,
+    tileMap,
+    context,
+    camera,
+    player,
+    direction,
+    playerTileCheck
+  ) {
     this.player = player;
     this.originalX = x;
     this.originalY = y;
     this.x = this.player.x + this.originalX;
     this.y = this.player.y + this.originalY;
-    this.tileMap = tileMap
-    this.tileCheckerImage.src = "sprites/shiftMenu/tileChecker.bmp"
-    this.alternateTileCheckerImage.src = "sprites/player/playerTileCheckImage.bmp";
+    this.tileMap = tileMap;
+    this.tileCheckerImage.src = "sprites/shiftMenu/tileChecker.bmp";
+    this.alternateTileCheckerImage.src =
+      "sprites/player/playerTileCheckImage.bmp";
     this.context = context;
     this.camera = camera;
     this.playerTileCheck = playerTileCheck;
@@ -25,27 +34,29 @@ export default class TileChecker {
     this.up = true;
     this.down = true;
 
-
-    this.direction = direction
+    this.direction = direction;
   }
 
   Check(z, r, array) {
     this.x = this.player.x + this.originalX;
     this.y = this.player.y + this.originalY;
-    if(this.player.killLoops === false) {
-      for(let q = 0; q < array.length + 1; q++) {
-        if(array[q] !== undefined || null) {
+    if (this.player.killLoops === false) {
+      for (let q = 0; q < array.length + 1; q++) {
+        if (array[q] !== undefined || null) {
           if (
             array[q].x < this.x + 20 &&
             array[q].x + 64 > this.x &&
             array[q].y < this.y + 20 &&
-            array[q].y + 64 > this.y) {
+            array[q].y + 64 > this.y
+          ) {
             this.arrayNum = q;
-            this.context.drawImage(this.tileCheckerImage,
+            this.context.drawImage(
+              this.tileCheckerImage,
               this.x - this.camera.x,
-              this.y - this.camera.y);
+              this.y - this.camera.y
+            );
 
-            switch(this.direction) {
+            switch (this.direction) {
               case "up":
                 this.up = true;
                 break;
@@ -59,10 +70,8 @@ export default class TileChecker {
                 this.right = true;
                 break;
             }
-
-          }
-          else {
-            switch(this.direction) {
+          } else {
+            switch (this.direction) {
               case "up":
                 this.up = false;
                 break;
@@ -79,14 +88,15 @@ export default class TileChecker {
           }
         }
       }
-
-    } else if(this.player.killLoops === true) {
+    } else if (this.player.killLoops === true) {
       if (
         array[this.arrayNum].x < this.x + 20 &&
         array[this.arrayNum].x + 64 > this.x &&
         array[this.arrayNum].y < this.y + 20 &&
-        array[this.arrayNum].y + 64 > this.y && this.arrayNum !== undefined) {
-        switch(this.direction) {
+        array[this.arrayNum].y + 64 > this.y &&
+        this.arrayNum !== undefined
+      ) {
+        switch (this.direction) {
           case "up":
             this.up = true;
             this.playerTileCheck.rememberUp = true;
@@ -104,10 +114,13 @@ export default class TileChecker {
             this.playerTileCheck.rememberRight = true;
             break;
         }
-        this.context.drawImage(this.tileCheckerImage, this.x - this.camera.x,
-          this.y - this.camera.y);
+        this.context.drawImage(
+          this.tileCheckerImage,
+          this.x - this.camera.x,
+          this.y - this.camera.y
+        );
       } else {
-        switch(this.direction) {
+        switch (this.direction) {
           case "up":
             this.up = false;
             this.playerTileCheck.rememberUp = false;
@@ -125,22 +138,17 @@ export default class TileChecker {
             this.playerTileCheck.rememberRight = false;
             break;
         }
-        this.context.drawImage(this.alternateTileCheckerImage,
-          this.x - this.camera.x, this.y - this.camera.y);
+        this.context.drawImage(
+          this.alternateTileCheckerImage,
+          this.x - this.camera.x,
+          this.y - this.camera.y
+        );
       }
-
     }
-
-
-
-
-
   }
 
   update() {
     // this.x += this.x
     this.Check(this.x, this.y, this.tileMap.money);
-
   }
-
 }

@@ -1,5 +1,4 @@
 export default class EventManager {
-
   mouseHeldDown = false;
 
   constructor(canvas, context, camera, player, cursor) {
@@ -12,44 +11,42 @@ export default class EventManager {
 
   // player controls updating, should really be a controller
 
-  onKeyPress = e => {
+  onKeyPress = (e) => {
     switch (e.key.toUpperCase()) {
-      case 'B':
-
+      case "B":
         break;
     }
-  }
+  };
 
-  onMouseDown = e => {
+  onMouseDown = (e) => {
     this.mouseHeldDown = true;
     // this.cursor.isDrawing = true;
     // console.log("yes");
-  }
+  };
 
-  onMouseUp = e => {
+  onMouseUp = (e) => {
     this.mouseHeldDown = false;
     this.cursor.isDrawing = false;
     // console.log("no");
-  }
+  };
 
-  onKeyDown = e => {
+  onKeyDown = (e) => {
     // this.playerMoving = true;
 
     switch (e.key.toUpperCase()) {
       // case 'W':
       //   this.player.isUp = true;
       //   break;
-      case 'S':
+      case "S":
         this.player.isDown = true;
         break;
-      case 'A':
+      case "A":
         this.player.isLeft = true;
         break;
-      case 'D':
+      case "D":
         this.player.isRight = true;
         break;
-      case 'SHIFT':
-
+      case "SHIFT":
         // maybe the player could smoothly move into shift mode rather than
         // stop immediately
         this.player.dx = 0;
@@ -58,27 +55,25 @@ export default class EventManager {
         this.player.killLoops = true;
         break;
     }
-  }
+  };
 
-  onKeyUp = e => {
-
+  onKeyUp = (e) => {
     switch (e.key.toUpperCase()) {
-      case 'S':
+      case "S":
         this.player.isDown = false;
         break;
-      case 'A':
+      case "A":
         this.player.isLeft = false;
         break;
-      case 'D':
+      case "D":
         this.player.isRight = false;
         break;
-      case 'SHIFT':
+      case "SHIFT":
         this.player.stopPlayerMoving = false;
         this.player.loadShiftHud = true;
         this.player.killLoops = false;
 
         break;
-
     }
-  }
+  };
 }

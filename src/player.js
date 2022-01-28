@@ -1,9 +1,7 @@
 import TileMap from "./tilemap.js";
 
 export default class Player {
-
   // builds the player
-
 
   // #### MOVEMENT VARIABLES START ####
   // the velocity/implied direction
@@ -25,11 +23,9 @@ export default class Player {
   static MAX_SPEED = 7;
   //#### MOVEMENT VARIABLES END ####
 
-
   // #### SHIFT MENU LOGIC START ####
   // this detects if the player is on the floor or not
   isTouchingFloor = false;
-
 
   // a check to load the shift menu
   loadShiftHud = false;
@@ -48,9 +44,6 @@ export default class Player {
   blockInventoryArray = [];
   // #### SHIFT MENU LOGIC END ####
 
-
-
-
   // #### PLAYER VISUALS START ####
   static WIDTH = 50;
   static HEIGHT = 50;
@@ -60,8 +53,7 @@ export default class Player {
 
   // #### PLAYER VISUALS END ####
 
-
-  constructor (x, y, camera) {
+  constructor(x, y, camera) {
     // Defaults to the top-left coordinates (0,0) in the map
     // if nothing is selected
 
@@ -75,15 +67,12 @@ export default class Player {
     // engine
     this.playerImage.src = "sprites/player/playerRobot.bmp";
     this.shiftMenuImage.src = "sprites/shiftMenu/shiftMenu.bmp";
-
   }
-
 
   // this is the main update method in the player object/class, it's very
   // important and responsible for updating every method you pick here
-  update (map) {
-
-    if(this.stopPlayerMoving === false) {
+  update(map) {
+    if (this.stopPlayerMoving === false) {
       this.accelerate();
     }
 
@@ -93,11 +82,9 @@ export default class Player {
     this.y += this.dy;
   }
 
-
   // this adds or subtracts smooth acceleration to the player object
   // allowing you to move
-  accelerate () {
-
+  accelerate() {
     // up subtracts from y
     if (this.isUp) {
       this.dy -= Player.ACCELERATION;
@@ -156,10 +143,9 @@ export default class Player {
     }
   }
 
-
   // this part isn't my code, I don't really understand aspects of it yet
   // I have to rewrite it
-  collide (map) {
+  collide(map) {
     if (this.dx !== 0) {
       let minRow = map.scaleRow(this.y);
       let maxRow = map.scaleRow(this.y + Player.HEIGHT);
@@ -174,20 +160,20 @@ export default class Player {
         maxColumn = map.scaleColumn(this.x + Player.WIDTH + this.dx);
       }
 
-      loop:
-        for (let row = minRow; row <= maxRow; row++) {
-          for (let column = minColumn; column <= maxColumn; column++) {
-            if (map.isColliding(column, row)) {
-              this.x = this.dx < 0
+      loop: for (let row = minRow; row <= maxRow; row++) {
+        for (let column = minColumn; column <= maxColumn; column++) {
+          if (map.isColliding(column, row)) {
+            this.x =
+              this.dx < 0
                 ? (column + 1) * TileMap.TILE_WIDTH
                 : column * TileMap.TILE_WIDTH - Player.WIDTH - 1;
 
-              this.dx = 0;
+            this.dx = 0;
 
-              break loop
-            }
+            break loop;
           }
         }
+      }
     }
 
     if (this.dy !== 0) {
@@ -204,42 +190,44 @@ export default class Player {
         maxRow = map.scaleRow(this.y + Player.HEIGHT + this.dy);
       }
 
-      loop:
-        for (let row = minRow; row <= maxRow; row++) {
-          for (let column = minColumn; column <= maxColumn; column++) {
-            if (map.isColliding(column, row)) {
-              this.y = this.dy < 0
+      loop: for (let row = minRow; row <= maxRow; row++) {
+        for (let column = minColumn; column <= maxColumn; column++) {
+          if (map.isColliding(column, row)) {
+            this.y =
+              this.dy < 0
                 ? (row + 1) * TileMap.TILE_HEIGHT
-                : row * TileMap.TILE_HEIGHT - Player.HEIGHT - 1
-              this.isTouchingFloor = true;
-              // console.log(this.isTouchingFloor);
-              this.dy = 0.0;
+                : row * TileMap.TILE_HEIGHT - Player.HEIGHT - 1;
+            this.isTouchingFloor = true;
+            // console.log(this.isTouchingFloor);
+            this.dy = 0.0;
 
-              break loop
-            }
+            break loop;
           }
         }
+      }
     }
   }
-
 
   // this draws the shift block menu, it's just easier to keep it in a separate
   // method so there could maybe be associated logic to it in the future
   renderShiftHud(context) {
-    context.drawImage(this.shiftMenuImage, this.x - this.camera.x,
-      this.y - 90 - this.camera.y);
+    context.drawImage(
+      this.shiftMenuImage,
+      this.x - this.camera.x,
+      this.y - 90 - this.camera.y
+    );
   }
-
 
   // this is responsible for rendering everything related to this onto
   // the screen
-  render (context) {
-
-    context.drawImage(this.playerImage, this.x - this.camera.x,
-      this.y - this.camera.y);
-    if(this.loadShiftHud === true) {
+  render(context) {
+    context.drawImage(
+      this.playerImage,
+      this.x - this.camera.x,
+      this.y - this.camera.y
+    );
+    if (this.loadShiftHud === true) {
       this.renderShiftHud(context);
     }
-
   }
 }

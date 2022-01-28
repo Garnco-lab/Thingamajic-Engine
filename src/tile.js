@@ -1,12 +1,12 @@
 // the original tile object that generated, this will be removed
 
 export default class Tile {
-  constructor (color, index) {
-    this.color = color || 'black';
+  constructor(color, index) {
+    this.color = color || "black";
     this.index = index || 0;
   }
 
-  isSolid () {
-    return this.index !== 0 // 0 is walkable (grass) and 1 is not (wall)
+  isSolid() {
+    return this.index !== 0; // 0 is walkable (grass) and 1 is not (wall)
   }
 }

@@ -3,14 +3,14 @@
 // with the numbers being the invisible line
 
 export default class Camera {
-  constructor (x, y) {
+  constructor(x, y) {
     // || 0 means that's the default position if you don't put in anything while
     // spawning it into the game world
     this.x = x || 0;
     this.y = y || 0;
   }
 
-  focus (x, y) {
+  focus(x, y) {
     this.x = x || 0;
     this.y = y || 0;
   }

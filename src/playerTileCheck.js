@@ -1,4 +1,5 @@
-export default class PlayerTileCheck { // THIS IS THE MAIN OBJECT THAT DETECTS IF THE PLAYER
+export default class PlayerTileCheck {
+  // THIS IS THE MAIN OBJECT THAT DETECTS IF THE PLAYER
   // IS ON A TILE OR NOT
 
   idOfTileUnderThisObject = undefined;
@@ -16,8 +17,8 @@ export default class PlayerTileCheck { // THIS IS THE MAIN OBJECT THAT DETECTS I
   rememberUp = false;
   rememberDown = false;
 
-  constructor(player, canvas, context, camera , offset) {
-    this.offset = offset || 0
+  constructor(player, canvas, context, camera, offset) {
+    this.offset = offset || 0;
     this.x = player.x + 16 + this.offset;
     this.y = player.y + 16;
     this.topY = player.y + 16 - 64;
@@ -31,20 +32,20 @@ export default class PlayerTileCheck { // THIS IS THE MAIN OBJECT THAT DETECTS I
     this.playerCheckImage.src = "sprites/player/playerTileCheckImage.bmp";
   }
 
-  update(player){
-    this.x = player.x + 16 + this.offset ;
+  update(player) {
+    this.x = player.x + 16 + this.offset;
     this.y = player.y + 16;
     this.topY = player.y + 16 - 64;
     this.bottomY = player.y + 16 + 64;
     this.rightX = player.x + 16 + 64;
     this.leftX = player.x + 16 - 64;
-
   }
 
   render(context) {
-
-    context.drawImage(this.playerCheckImage, this.x - this.camera.x,
-      this.y - this.camera.y);
-
+    context.drawImage(
+      this.playerCheckImage,
+      this.x - this.camera.x,
+      this.y - this.camera.y
+    );
   }
 }

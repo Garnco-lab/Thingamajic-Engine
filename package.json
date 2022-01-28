@@ -1,0 +1,22 @@
+{
+  "name": "salgame",
+  "version": "1.0.0",
+  "description": "a basic game engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Garnco-lab/Thingamajic-Engine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Garnco-lab/Thingamajic-Engine/issues"
+  },
+  "homepage": "https://github.com/Garnco-lab/Thingamajic-Engine#readme",
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
+}

@@ -2,7 +2,6 @@ import Tile from "./tile.js";
 import TileBlock from "./tileBlock.js";
 
 export default class TileMap {
-
   // containers
   backgroundGrassTiles = [];
   tiles = [];
@@ -17,10 +16,10 @@ export default class TileMap {
   image_1 = new Image();
   image_2 = new Image();
 
-  static TILE_GRASS = new Tile('#00AA00FF', 0);
-  static TILE_ALT_GRASS = new Tile('#504050', 1);
+  static TILE_GRASS = new Tile("#00AA00FF", 0);
+  static TILE_ALT_GRASS = new Tile("#504050", 1);
 
-  static TILE_WALL = new Tile('#555555FF', 2);
+  static TILE_WALL = new Tile("#555555FF", 2);
 
   // street / sidewalk
 
@@ -30,9 +29,7 @@ export default class TileMap {
   static INVERTED_TILE_HEIGHT = 1 / TileMap.TILE_HEIGHT;
   checkerLast = false;
 
-
-
-  constructor (columns, rows , canvas) {
+  constructor(columns, rows, canvas) {
     this.columns = columns || 1;
     this.rows = rows || 1;
     this.character = new Image();
@@ -41,14 +38,12 @@ export default class TileMap {
     // this.mask.src = "sprites/sword_mask.bmp";
     this.canvas = canvas;
 
-
     this.image_0.src = "sprites/background/blueBlockBackground.bmp";
     this.image_1.src = "sprites/background/blockBackground.bmp";
     this.image_2.src = "sprites/blocks/box1.bmp";
   }
 
-  generate () {
-
+  generate() {
     // this.character = new Image();
     // Loop between second and second to last rows
     for (let row = 1; row < this.rows - 1; row++) {
@@ -56,11 +51,10 @@ export default class TileMap {
 
       // Loop between second and second to last columns
       for (let column = 1; column < this.columns - 1; column++) {
-        this.tiles[row][column] = Math.random() < 0.2
-          ? TileMap.TILE_WALL // 20% chance wall
-          : TileMap.TILE_GRASS; // 80% chance grass
-
-
+        this.tiles[row][column] =
+          Math.random() < 0.2
+            ? TileMap.TILE_WALL // 20% chance wall
+            : TileMap.TILE_GRASS; // 80% chance grass
       }
 
       // Fill in first and last columns of each row with walls
@@ -108,54 +102,54 @@ export default class TileMap {
     // console.log(this.backgroundGrassTiles);
   }
 
-  setTile (row, column, tile) {
+  setTile(row, column, tile) {
     this.tiles[row][column] = tile;
   }
 
-  scaleColumn (column) {
+  scaleColumn(column) {
     return Math.trunc(column * TileMap.INVERTED_TILE_WIDTH); // same as | 0
   }
 
-  scaleRow (row) {
+  scaleRow(row) {
     return Math.trunc(row * TileMap.INVERTED_TILE_HEIGHT); // same as | 0
   }
 
-  isColliding (column, row) {
+  isColliding(column, row) {
     return (
-      column > -1 && column < this.columns &&
-      row > -1 && row < this.rows &&
+      column > -1 &&
+      column < this.columns &&
+      row > -1 &&
+      row < this.rows &&
       this.tiles[row][column].isSolid()
     );
   }
 
-
   // ########## RENDER ############
-  render (context, camera) {
-
+  render(context, camera) {
     // Render each tile in every row/column
     for (let row = 0; row < this.rows; row++) {
       for (let column = 0; column < this.columns; column++) {
-
         // grab tile location and check to see what it is
         const tile = this.tiles[row][column];
         // Convert from map to canvas coordinates
         const x = column * TileMap.TILE_WIDTH - camera.x;
         const y = row * TileMap.TILE_HEIGHT - camera.y;
 
-
         // takes in style depending on what number tile.color is. will soon be
         // a picture
         context.fillStyle = tile.color;
-
-
 
         // change draw condition based on which tile it is
         // this is for the logic grid wont be used in the future..
 
         switch (tile.color) {
           case "#00AA00FF":
-            context.fillRect(x, y, TileMap.TILE_WIDTH - 1,
-              TileMap.TILE_HEIGHT - 1);
+            context.fillRect(
+              x,
+              y,
+              TileMap.TILE_WIDTH - 1,
+              TileMap.TILE_HEIGHT - 1
+            );
             break;
           default:
             // context.fillStyle = "#00AA00FF"
@@ -169,16 +163,12 @@ export default class TileMap {
   }
 
   renderBackgroundGrassLayer(context, camera, player) {
-
     for (let row = 0; row < this.rows; row++) {
       for (let column = 0; column < this.columns; column++) {
-
         const tile = this.backgroundGrassTiles[row][column];
 
         const x = column * TileMap.TILE_WIDTH - camera.x;
         const y = row * TileMap.TILE_HEIGHT - camera.y;
-
-
 
         switch (tile.index) {
           case 0:
@@ -188,77 +178,61 @@ export default class TileMap {
             context.drawImage(this.image_1, x, y, 63, 63);
             break;
           default:
-            console.log("broken grass rendering")
+            console.log("broken grass rendering");
             break;
         }
-
-
       }
     }
   }
 
-
-
-  generateCoinLayer(context, camera){
-    for(let row = 0; row < this.rows; row++) {
-      for(let column = 0; column < this.columns; column++) {
-
+  generateCoinLayer(context, camera) {
+    for (let row = 0; row < this.rows; row++) {
+      for (let column = 0; column < this.columns; column++) {
         const tile = this.tiles[row][column];
 
         const x = column * TileMap.TILE_WIDTH - camera.x;
         const y = row * TileMap.TILE_HEIGHT - camera.y;
-
-
 
         // context.fillStyle = tile.color;
 
         // let character = new Image();
         // character.src = "sprites/sword.png"
 
-
         switch (tile.color) {
           case "#00AA00FF":
-
             let coin = new TileBlock(x, y, this.canvas);
             coin.id = "tileBlock:_" + this.money.length;
             this.money.push(coin);
 
             break;
           default:
-
             break;
         }
         // future render loop
       }
     }
-
   }
 
   // thankfully this can just be copied and reused
 
-  renderWallLayer(wallContext,camera) {
+  renderWallLayer(wallContext, camera) {
     // Render each tile in every row/column
     for (let row = 0; row < this.rows; row++) {
       for (let column = 0; column < this.columns; column++) {
-
         // grab tile location and check to see what it is
         const tile = this.tiles[row][column];
         // Convert from map to canvas coordinates
         const x = column * TileMap.TILE_WIDTH - camera.x;
         const y = row * TileMap.TILE_HEIGHT - camera.y;
 
-
         // takes in style depending on what number tile.color is. will soon be
         // a picture
         // context.fillStyle = tile.color;
-
-
 
         // change draw condition based on which tile it is
         // this is for the logic grid wont be used in the future..
 
         if (tile.index === 2) {
-
           wallContext.drawImage(this.image_2, x, y);
           // wallContext.clearRect(0, 0, wallContext.width, wallContext.height);
         }
@@ -268,36 +242,29 @@ export default class TileMap {
   }
 
   renderBackground(context) {
-    context.fillStyle = 'gray';
+    context.fillStyle = "gray";
     context.fillRect(
-      -this.canvas.width / 2, -this.canvas.height / 2,
-      this.canvas.width, this.canvas.height
+      -this.canvas.width / 2,
+      -this.canvas.height / 2,
+      this.canvas.width,
+      this.canvas.height
     );
-
   }
 
-
   renderVisualLayer(context, camera) {
-
-
-    for(let x = 0; x < this.money.length + 1; x++) {
-      if(this.money[x] !== undefined || null) {
+    for (let x = 0; x < this.money.length + 1; x++) {
+      if (this.money[x] !== undefined || null) {
         // this.money[x].pickUpCoin(player2, player2.x + 64, player2.y);
         this.money[x].render(context, camera);
       }
-
-
-
     }
-
   }
 
   checkTilesLayer(player, x, z) {
-    for(let y = 0; y < this.money.length + 1; y ++) {
-      if(this.money[y] !== undefined || null) {
+    for (let y = 0; y < this.money.length + 1; y++) {
+      if (this.money[y] !== undefined || null) {
         this.money[y].detectObjectsOverThisTile(player, x, z);
       }
     }
   }
-
 }
