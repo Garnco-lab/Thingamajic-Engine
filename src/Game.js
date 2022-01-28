@@ -1,5 +1,7 @@
 // THIS IS THE MAIN SCRIPT FOR THE GAME
 // EVERYTHING ELSE LOADS AND PLAYS INTO THIS, IT'S WHERE THE MAGIC HAPPENS
+
+// the imports are how the other scripts are brought into this file to be read
 import EventManager from "./eventManager.js";
 import Camera from "./camera.js";
 import TileMap from "./tilemap.js";
@@ -7,19 +9,18 @@ import Player from "./player.js";
 import TileChecker from "./tileChecker.js";
 import PlayerTileCheck from "./playerTileCheck.js";
 
+/**
+ * The main class where the game is created.
+ */
 export default class Game {
-  // main game class
-
-  // "static" is a variable type that means it wont ever change
-  // while that's pretty useful on top of that in javascript it means it wont
+  // "static" is a variable type that means it won't ever change
+  // while that's pretty useful on top of that in javascript it means it won't
   // be a global variable accessible from everywhere, which is awesome
 
   // sets the canvas width and height
-  static CANVAS_WIDTH = 1280;
-  static CANVAS_HEIGHT = 720;
 
   // this is the constructor that allows you to load in and reference other
-  // objects, set default variables, kind of hard to explain but it's
+  // objects, set default variables, kind of hard to explain, but it's
   // sort of like a template that sets up this object before it really
   // starts to work
   // in this case it's literally taking in the entire game API
@@ -42,8 +43,8 @@ export default class Game {
     // associate it with (referenced in other scripts as
     // Game.canvas.width, Game.fps etc.)
 
-    this.canvas.width = Game.CANVAS_WIDTH;
-    this.canvas.height = Game.CANVAS_HEIGHT;
+    this.canvas.width = 1280;
+    this.canvas.height = 720;
 
     this.fps = 60;
 
@@ -63,7 +64,8 @@ export default class Game {
 
     this.camera = new Camera(0, 0);
     this.map = new TileMap(21, 21, this.canvas);
-    this.player = new Player(652, 650, this.camera); //  76,75 for the player
+    this.player = new Player(652, 650, this.camera); //  76,75 for the
+    // player
 
     this.playerTileCheck = new PlayerTileCheck(
       this.player,
